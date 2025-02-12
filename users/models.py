@@ -6,6 +6,11 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 import random
 
+from django.utils import timezone
+
+created_at = models.DateTimeField(default=timezone.now, auto_now_add=True)
+
+
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     is_verified = models.BooleanField(default=False)

@@ -2,9 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
 
-
 User = get_user_model()
-
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,7 +12,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
-        user.is_active = False  # Email tasdiqlanmaguncha login qila olmasin
+        user.is_active = False
         user.generate_verification_code()
         user.save()
         return user
@@ -56,4 +54,4 @@ class LoginSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'phone_number']
+        fields = ['id', 'username', 'email']
